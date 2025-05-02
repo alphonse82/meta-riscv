@@ -10,6 +10,7 @@ SRC_URI = " \
     git://github.com/smaeul/u-boot.git;protocol=https;branch=d1-wip \
     file://tftp-mmc-boot.txt \
     file://uEnv-nezha.txt \
+    file://uEnv-lichee-rv-dock.txt \
     file://0001-sun20i-set-CONFIG_SYS_BOOTM_LEN.patch \
     file://0002-Fix-build-with-newer-swig.patch \
 "
@@ -37,12 +38,18 @@ do_compile:prepend() {
     ln -rfs ${S}/arch/arm/include/asm/arch-sunxi ${S}/arch/riscv/include/asm/arch-sunxi
 }
 
-do_deploy:append() {
+do_deploy:nezha-allwinner-d1:append() {
     install -m 644 ${B}/u-boot-sunxi-with-spl.bin ${DEPLOYDIR}
     install -m 644 ${UNPACKDIR}/uEnv-nezha.txt ${DEPLOYDIR}/uEnv.txt
+}
+
+do_deploy:lichee-rv-dock:append() {
+    install -m 644 ${B}/u-boot-sunxi-with-spl.bin ${DEPLOYDIR}
+    install -m 644 ${WORKDIR}/uEnv-lichee-rv-dock.txt ${DEPLOYDIR}/uEnv.txt
+    install -m 644 ${WORKDIR}/${UBOOT_ENV_BINARY} ${DEPLOYDIR}
 }
 
 TOOLCHAIN = "gcc"
 ## Should be overwritten in machine conf
 UBOOT_MACHINE ?= "allwinner_defconfig"
-COMPATIBLE_MACHINE = "(nezha-allwinner-d1|mangopi-mq-pro)"
+COMPATIBLE_MACHINE = "(nezha-allwinner-d1|mangopi-mq-pro|lichee-rv-dock)"
