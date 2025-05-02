@@ -18,4 +18,4 @@ RPROVIDES:${PN} += "kernel-module-rtl8723ds"
 
 EXTRA_OEMAKE = "KSRC=${STAGING_KERNEL_DIR}"
 
-COMPATIBLE_MACHINE = "mangopi-mq-pro"
+COMPATIBLE_MACHINE = "(mangopi-mq-pro|lichee-rv-dock)"

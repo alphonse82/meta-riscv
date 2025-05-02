@@ -91,6 +91,12 @@ kas build kas/nezha.yml
 kas build kas/beaglev.yml
 ```
 
+* For `lichee-rv-dock` build:
+
+```text
+kas build kas/lichee-rv-dock.yml
+```
+
 * For more machines check `kas` folder.
 
 
